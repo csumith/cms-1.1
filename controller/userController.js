@@ -4,7 +4,7 @@ const { statusCodes } = require('http-status-codes');
 const userController = {
     getall : async (req,res) =>{ 
        try{
-        res.json({msg: ""})
+        res.json({msg: "get all users"})
        }catch(err){
         return res.status(statusCodes.INTERNAL_SERVER_ERROR).json({msg: err.message})
        }

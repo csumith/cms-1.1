@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const assert = require('assert')
 const fileUpload = require('express-fileupload');
 const {StatusCodes} = require('http-status-codes')
+const  connectDB = require('./db/index')
 
 
 //port
@@ -15,7 +16,7 @@ const app = express()
 
 //body parser
 
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true})) // when we not get data this only problem
 app.use(express.json())
 
 //middleware
@@ -34,14 +35,16 @@ app.use(
 const authRoute = require('./route/authRoute');
 const userRoute = require('./route/userRoute');
 
+
 //primary route
 
 app.use('/api/v1/auth', authRoute)
-app.use('/api/v1/auth', userRoute)
+app.use('/api/v1/user', userRoute)
 
 
 const start = async () => {
     try {
+        await connectDB()
         app.listen(PORT , ()=>{
             console.log(`server is listining @ http://localhost:${PORT}`)
         })
